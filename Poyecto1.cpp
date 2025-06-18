@@ -1,0 +1,73 @@
+#include <stdio.h> 
+
+bool primo(int numero) {
+    if (numero <= 1) return false;
+    for (int i = 2; i * i <= numero; ++i) {
+        if (numero % i == 0)
+            return false;
+    }
+    return true;
+}
+
+int main() {
+    char continuar;
+
+    do {
+        int n;
+        printf("¿Cuántos números desea validar? ");
+        scanf("%d", &n);
+
+        int mayor = -1;
+        int posicionMayor = -1;
+
+        int sumaPrimos = 0, sumaNoPrimos = 0;
+        int cuentaPrimos = 0, cuentaNoPrimos = 0;
+
+        for (int i = 0; i < n; ++i) {
+            int numero;
+            printf("Ingresa el número %d: ", i + 1);
+            scanf("%d", &numero);
+
+            if (primo(numero)) {
+                printf("%d es un número primo.\n", numero);
+                sumaPrimos += numero;
+                cuentaPrimos++;
+            } else {
+                printf("%d no es un número primo.\n", numero);
+                sumaNoPrimos += numero;
+                cuentaNoPrimos++;
+            }
+
+            if (i == 0 || numero > mayor) {
+                mayor = numero;
+                posicionMayor = i + 1;
+            }
+        }
+
+        printf("\n--- Resultados ---\n");
+        printf("Número mayor: %d\n", mayor);
+        printf("Posición en que fue ingresado: %d\n", posicionMayor);
+
+        printf("\nCantidad de números primos: %d\n", cuentaPrimos);
+        printf("Suma de números primos: %d\n", sumaPrimos);
+        if (cuentaPrimos > 0)
+            printf("Promedio de números primos: %.2f\n", (float)sumaPrimos / cuentaPrimos);
+        else
+            printf("Promedio de números primos: N/A\n");
+
+        printf("\nCantidad de números no primos: %d\n", cuentaNoPrimos);
+        printf("Suma de números no primos: %d\n", sumaNoPrimos);
+        if (cuentaNoPrimos > 0)
+            printf("Promedio de números no primos: %.2f\n", (float)sumaNoPrimos / cuentaNoPrimos);
+        else
+            printf("Promedio de números no primos: N/A\n");
+
+        printf("\n¿Deseas ingresar otra cantidad de números? (s/n): ");
+        scanf(" %c", &continuar); 
+
+    } while (continuar == 's' || continuar == 'S');
+
+    printf("Programa finalizado.\n");
+    return 0;
+}
+    
